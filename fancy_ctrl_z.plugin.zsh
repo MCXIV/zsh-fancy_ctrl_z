@@ -1,11 +1,7 @@
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
+# Fancy ctrl Z for backgrounding
+# CTRL + Z to bg, CTRL + Z + x where x in [1;9] to foreground given x
+for i in {1..9}
+do
+	bindkey -s "^Z$i" "fg %${i}^M"
+done
+
